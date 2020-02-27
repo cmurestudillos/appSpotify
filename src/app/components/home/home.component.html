@@ -1,0 +1,10 @@
+<!-- Componente de carga de contenido -->
+<app-loading *ngIf="loading"></app-loading>
+
+<div *ngIf="error" class="alert alert-danger animated fadeIn slow m-5">
+    <h3>Error</h3>
+    <p>{{ mensajeError }}</p>
+</div>
+
+<!-- Componente reutilizable -->
+<app-tarjetas [items]="canciones"></app-tarjetas>

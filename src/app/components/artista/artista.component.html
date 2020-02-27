@@ -1,0 +1,42 @@
+<app-loading *ngIf="loadingArtista"></app-loading>
+
+<div class="row animated fadeIn slow" *ngIf="!loadingArtista">
+    <div class="col-2">
+        <img [src]="artista.images | sinfoto" class="img-thumbnail img-circle" [alt]="artista.name">
+    </div>
+    <div class="col">
+        <h3>{{ artista.name }}</h3>
+        <p>
+            <a [href]="artista.external_urls.spotify" target="_blank"> Ir a la pagina del artista </a>
+        </p>
+    </div>
+    <div class="col-4 text-right">
+        <button [routerLink]="['/search']" class="btn btn-outline-danger"> Volver </button>
+    </div>
+</div>
+<hr>
+<div class="row m-5">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Album</th>
+                    <th>Cancion</th>
+                    <th>Vista Previa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let track of tracks">
+                    <td><img class="img-thumb" [src]="track.album.images | sinfoto" [alt]="track.name"></td>
+                    <td>{{ track.album.name }}</td>
+                    <td>{{ track.name }}</td>
+                    <td>
+                        <!-- <audio [src="track.preview_url" ] controls></audio> -->
+                        <iframe [src]="track.uri | domseguro" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

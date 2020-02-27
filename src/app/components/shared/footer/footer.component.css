@@ -1,0 +1,15 @@
+/* Insertar estilos especificos del componente */
+
+footer {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    bottom: 0;
+    /* valor que necesites */
+    position: fixed;
+    width: 100%;
+}
+
+i {
+    color: white;
+}

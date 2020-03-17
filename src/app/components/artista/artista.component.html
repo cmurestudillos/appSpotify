@@ -1,39 +1,38 @@
-<app-loading *ngIf="loadingArtista"></app-loading>
+<app-loading class="m-5" *ngIf="loading"></app-loading>
 
-<div class="row animated fadeIn slow" *ngIf="!loadingArtista">
-    <div class="col-2">
-        <img [src]="artista.images | sinfoto" class="img-thumbnail img-circle" [alt]="artista.name">
+<div class="row animated fadeIn slow" *ngIf="!loading">
+    <div class="col-2 mt-5">
+        <img [src]="artista.images | noimage" [title]="artista.name" class="img-thumbnail img-circle">
     </div>
-    <div class="col">
-        <h3>{{ artista.name }}</h3>
+    <div class="col mt-5">
+        {{artista.name}}
         <p>
             <a [href]="artista.external_urls.spotify" target="_blank"> Ir a la pagina del artista </a>
         </p>
     </div>
-    <div class="col-4 text-right">
-        <button [routerLink]="['/search']" class="btn btn-outline-danger"> Volver </button>
+    <div class="col-4 mt-5 text-right">
+        <button id="btnvolver" routerLink="/search" class="btn btn-outline-success w-50"> <strong> Volver </strong> </button>
     </div>
 </div>
-<hr>
-<div class="row m-5">
+
+<div class="row mt-5">
     <div class="col">
         <table class="table">
-            <thead>
+            <thead class="text-white text-center">
                 <tr>
                     <th>Foto</th>
                     <th>Album</th>
                     <th>Cancion</th>
-                    <th>Vista Previa</th>
+                    <th>Vista previa</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let track of tracks">
-                    <td><img class="img-thumb" [src]="track.album.images | sinfoto" [alt]="track.name"></td>
-                    <td>{{ track.album.name }}</td>
-                    <td>{{ track.name }}</td>
+            <tbody class="text-white text-center">
+                <tr *ngFor="let track of topTracks">
+                    <td class="align-middle"><img [src]="track.album.images | noimage" [title]="track.album.name" class="img-thumb"></td>
+                    <td class="align-middle">{{ track.album.name }}</td>
+                    <td class="align-middle">{{ track.name }}</td>
                     <td>
-                        <!-- <audio [src="track.preview_url" ] controls></audio> -->
-                        <iframe [src]="track.uri | domseguro" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        <iframe [src]="track.uri | domseguro:' https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     </td>
                 </tr>
             </tbody>

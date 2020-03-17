@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+// Rutas
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,14 +9,14 @@ import { Router } from '@angular/router';
 })
 export class TarjetasComponent implements OnInit {
 
+  // Nos traemos los datos del HomeComponent
   @Input() items:any[] = [];
 
-  constructor( private router: Router) { }
+  constructor(private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
-  // Metodo para visualizar artista sea desde Componente Home o Search
   verArtista(item:any){
     let artistaId;
 
@@ -24,7 +25,7 @@ export class TarjetasComponent implements OnInit {
     }else{
       artistaId = item.artists[0].id;
     }
-    this.router.navigate(['/artista', artistaId]);
+    this.router.navigate(['/artist', artistaId]);
   }
 
 }

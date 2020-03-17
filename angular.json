@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
+  "version": 1, 
   "newProjectRoot": "projects",
   "projects": {
-    "spotiapp": {
+    "appSpoty": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/spotiapp",
+            "outputPath": "dist/appSpoty",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,14 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.css"
             ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "./node_modules/popper.js/dist/umd/popper.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -67,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "spotiapp:build"
+            "browserTarget": "appSpoty:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "spotiapp:build:production"
+              "browserTarget": "appSpoty:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "spotiapp:build"
+            "browserTarget": "appSpoty:build"
           }
         },
         "test": {
@@ -115,15 +110,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "spotiapp:serve"
+            "devServerTarget": "appSpoty:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "spotiapp:serve:production"
+              "devServerTarget": "appSpoty:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "spotiapp"
+  "defaultProject": "appSpoty"
 }

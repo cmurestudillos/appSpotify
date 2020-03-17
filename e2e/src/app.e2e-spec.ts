@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('spotiapp app is running!');
+    expect(page.getTitleText()).toEqual('appSpoty app is running!');
   });
 
   afterEach(async () => {

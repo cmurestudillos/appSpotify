@@ -1,14 +1,9 @@
-<div class="container">
-    <div class="row text-center">
-        <div class="col-sm-12">
-            <label for="busqueda">Buscador de artistas</label>
-            <input #busqueda (keypress)="buscarArtista(busqueda)" type="text" class="form-control" placeholder="Buscar por artista...">
-        </div>
+<div class="row">
+    <div class="col mt-5">
+        <input #valor type="text" (keypress)="buscar(valor.value)" class="form-control" placeholder="Buscar artista...">
     </div>
 </div>
 
-<!-- Componete de carga de contenido -->
 <app-loading *ngIf="loading"></app-loading>
 
-<!-- Componente reutilizable -->
 <app-tarjetas *ngIf="!loading" [items]="artistas"></app-tarjetas>

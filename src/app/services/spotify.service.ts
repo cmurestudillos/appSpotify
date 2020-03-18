@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // Operadores
 import { map } from 'rxjs/operators';
-import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -11,36 +10,66 @@ import { stringify } from 'querystring';
 
 export class SpotifyService {
 
+  public credentials = {
+    clientId: '8d45acfbba4b44c691c35ed84c86ca71',
+    clientSecret: '57b462d36baf45eca05d2de18e098cfc',
+    accessToken: ''
+  };
+
+  public poolURlS = {
+    authorize: 'https://accounts.spotify.com/es-ES/authorize?client_id=' +
+      this.credentials.clientId + '&response_type=token' +
+      '&redirect_uri=' + encodeURIComponent('https://appspotify.cmurestudillos.es') +
+      '&expires_in=3600',
+    refreshaAcessToken: 'https://accounts.spotify.com/api/token'
+  };
+
   constructor( private http: HttpClient) {
     console.log('Servicio activado.');
-   }
+    this.actualizarToken();
+  }
+
+  actualizarToken(){
+    this.credentials.accessToken = sessionStorage.getItem('token') || '';
+  }
+
 
    // Centralizar las peticiones al servicio y evitar
    // duplicacion de codigo
-   getQuery(query:string){
+  getQuery(query:string){
+  const url = `https://api.spotify.com/v1/${ query }`;
+  const header = {
+    headers: new HttpHeaders(
+      {'Authorization': 'Bearer ' + this.credentials.accessToken
+    })
+  };
 
-    let token: string;
-    const url = `https://api.spotify.com/v1/${ query }`;
+  return this.http.get( url, header);
+  }
 
-    // Guardamos el Token en el LocalSorage para evitar que caduque
-    localStorage.setItem("API token", 'BQAo4WDyyfJM-60jyrzsgSDfJqVi9ICs-ZdBUyOzriU7g82iFjLD6_YEwU9daqEHztWtq4_8hPyGLjZOzhk');
-    token = localStorage.getItem("API token");
-    // console.log(token);
+  checkTokenSpoLogin() {
+    this.checkTokenSpo() || (sessionStorage.setItem('refererURL', location.href), window.location.href = this.poolURlS.authorize);
+  }
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + token
-    });
+  checkTokenSpo() {
+    return !!this.credentials.accessToken;
+  }
 
-    return this.http.get( url, {headers});
-   }
+  tokenRefreshURL() {
+    this.checkTokenSpo() && alert('Expiro la sesión');
 
-   // Obtenemos los ultimos lanzamientos
-   getNewReleases(){
-    return this.getQuery(`browse/new-releases?country=ES&limit=20`)
-                .pipe( map( (data:any) => {
-                    return data['albums'].items;
-                }));
-   }
+    this.credentials.accessToken = '';
+    sessionStorage.removeItem('token');
+    this.checkTokenSpoLogin();
+  }
+
+  // Obtenemos los ultimos lanzamientos
+  getNewReleases(){
+  return this.getQuery(`browse/new-releases?country=ES&limit=20`)
+              .pipe( map( (data:any) => {
+                  return data['albums'].items;
+              }));
+  }
 
   // Obtenemos toda la informacion acerca de la palabra que pongamos en el buscador
   getArtistas( valor : string){

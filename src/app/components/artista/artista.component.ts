@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
  // Ruta Activa
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // Servicio
-import { SpotifyService } from 'src/app/services/spotify.service';
+import { SpotifyService } from '../../services/spotify.service';
+import { RouteService } from '../../services/route.service';
 
 @Component({
   selector: 'app-artista',
@@ -15,7 +16,7 @@ export class ArtistaComponent implements OnInit {
   topTracks:any = {};
   loading: boolean;
 
-  constructor(private route: ActivatedRoute, private _spotify: SpotifyService) {
+  constructor(private _router: Router, private route: ActivatedRoute, private _spotify: SpotifyService, private _routeService: RouteService,) {
     this.loading = true;
     this.route.params.subscribe( params => {
       this.getArtista(params['id']);
@@ -25,6 +26,11 @@ export class ArtistaComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  btnVolver(){
+    this._router.navigate([this._routeService.previousUrl]);
+  }
+
   // Metodo para obtener la informacion del artista seleccionado
   // y no sobrecargar el constructor
   getArtista(id :string){

@@ -1,8 +1,8 @@
 <app-loading class="m-5" *ngIf="loading"></app-loading>
 <br>
-<div *ngIf="error" class="alert alert-danger animated fadeIn slow m-5">
+<!-- <div *ngIf="error" class="alert alert-danger animated fadeIn slow m-5">
     <h3>Error</h3>
     <p>{{ mensajeError }}</p>
-</div>
+</div> -->
 
 <app-tarjetas class="m-5" [items]="nuevosLanzamientos"></app-tarjetas>

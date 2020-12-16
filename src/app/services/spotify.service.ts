@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // Operadores
 import { map } from 'rxjs/operators';
+// entorno/credenciales
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +13,16 @@ import { map } from 'rxjs/operators';
 export class SpotifyService {
 
   public credentials = {
-    clientId: '8d45acfbba4b44c691c35ed84c86ca71',
-    clientSecret: '57b462d36baf45eca05d2de18e098cfc',
-    accessToken: ''
+    clientId: environment.clientID,
+    clientSecret: environment.clientSECRET,
+    accessToken: '',
+    urlPersonalWeb: environment.urlWeb
   };
 
   public poolURlS = {
     authorize: 'https://accounts.spotify.com/es-ES/authorize?client_id=' +
       this.credentials.clientId + '&response_type=token' +
-      '&redirect_uri=' + encodeURIComponent('https://appspotify.cmurestudillos.es') +
+      '&redirect_uri=' + encodeURIComponent(this.credentials.urlPersonalWeb) +
       '&expires_in=3600',
     refreshaAcessToken: 'https://accounts.spotify.com/api/token'
   };

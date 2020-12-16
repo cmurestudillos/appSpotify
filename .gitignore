@@ -1,0 +1,6 @@
+node_modules
+coverage
+dist
+
+# Data/credentials
+access.js
